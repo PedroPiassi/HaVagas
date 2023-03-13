@@ -2,6 +2,7 @@ package br.edu.ifsp.havagas
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
@@ -136,6 +137,60 @@ class MainActivity : AppCompatActivity() {
 
                 vagasEt.setText("")
             }
+        }
+    }
+    override fun onSaveInstanceState( outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        with(activityMainBinding) {
+            outState.putString("nome", nomeEt.text.toString())
+            outState.putString("email", emailEt.text.toString())
+            outState.putBoolean("emailCb", emailCb.isChecked)
+
+            outState.putString("telefone", telefoneEt.text.toString())
+            outState.putString("Tipo", if (comercialRb.isChecked) "Residencial" else "Comercial")
+
+            outState.putBoolean("celularCb", celularCb.isChecked)
+            outState.putInt("celularLL", celularLL.visibility)
+            outState.putString("celular", celularEt.text.toString())
+
+            outState.putString("sexo", if (femininoRb.isChecked) "Femenino" else "Masculino")
+
+            outState.putInt("formacao", formacaoSp.selectedItemPosition)
+            outState.putString("dataFormacaoEd", dataFormacaoEd.text.toString())
+            outState.putString("anoConclusaoEd", anoConclusaoEd.text.toString())
+            outState.putString("instituicaoEd", instituicaoEd.text.toString())
+            outState.putString("anoConclusaoEd2", anoConclusaoEd2.text.toString())
+            outState.putString("instituicaoEd2", instituicaoEd2.text.toString())
+            outState.putString("tituloEd", tituloEd.text.toString())
+            outState.putString("orientadorEd", orientadorEd.text.toString())
+            outState.putString("vagasEt", vagasEt.text.toString())
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        with(activityMainBinding) {
+            nomeEt.setText(savedInstanceState.getString("nome"))
+            emailEt.setText(savedInstanceState.getString("email"))
+            emailCb.isChecked = savedInstanceState.getBoolean(("emailCb"))
+
+            telefoneEt.setText(savedInstanceState.getString("telefone"))
+
+            celularCb.isChecked = savedInstanceState.getBoolean("celularCb")
+            celularLL.visibility = savedInstanceState.getInt("celularLL")
+            celularEt.setText(savedInstanceState.getString("celular"))
+
+            if (savedInstanceState.getBoolean("sexo")) femininoRb.isChecked else masculinoRb.isChecked
+
+            formacaoSp.setSelection(savedInstanceState.getInt("formacao"))
+            dataFormacaoEd.setText(savedInstanceState.getString("dataFormacaoEd"))
+            anoConclusaoEd.setText(savedInstanceState.getString("anoConclusaoEd"))
+            instituicaoEd.setText(savedInstanceState.getString("instituicaoEd"))
+            anoConclusaoEd2.setText(savedInstanceState.getString("anoConclusaoEd2"))
+            instituicaoEd2.setText(savedInstanceState.getString("instituicaoEd2"))
+            tituloEd.setText(savedInstanceState.getString("tituloEd"))
+            orientadorEd.setText(savedInstanceState.getString("orientadorEd"))
+            vagasEt.setText(savedInstanceState.getString("vagasEt"))
         }
     }
 }
